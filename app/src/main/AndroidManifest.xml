@@ -10,6 +10,10 @@
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
     <activity
+      android:name=".controller.StatusActivity"
+      android:label="@string/status"
+      android:parentActivityName=".controller.MainActivity"/>
+    <activity
       android:name=".controller.SettingsActivity"
       android:label="Settings"
       android:parentActivityName=".controller.MainActivity"/>
