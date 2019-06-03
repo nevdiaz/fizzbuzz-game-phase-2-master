@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <integer name="time_limit_default">5</integer>
+  <integer name="time_limit_max">10</integer>
+
+  <integer name="num_digits_default">2</integer>
+  <integer name="num_digits_max">4</integer>
+
+  <integer name="game_time_min">30</integer>
+  <integer name="game_time_default">120</integer>
+  <integer name="game_time_increment">15</integer>
+  <integer name="game_time_max">300</integer>
+
+</resources>
