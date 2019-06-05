@@ -17,7 +17,7 @@
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintBottom_toTopOf="parent"/>
+    app:layout_constraintBottom_toTopOf="parent"/> <!-- Correct FizzBuzz indicator -->
 
   <ImageView
     android:id="@+id/incorrect_fizzbuzz_indicator"
@@ -39,6 +39,14 @@
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintTop_toTopOf="parent"/>
+
+  <TextView
+    android:id="@+id/clock_display"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    style="@style/ClockDisplay"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"/>
 
 
   <ImageView
