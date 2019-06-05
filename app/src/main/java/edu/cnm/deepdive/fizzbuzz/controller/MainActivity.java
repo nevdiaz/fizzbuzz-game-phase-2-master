@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GestureDetectorCompat;
 import androidx.preference.PreferenceManager;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity
   String gameDataKey;
   String gameTimeElapsedKey;
 
+
   /**
    * Initializes this activity when created, and when restored after {@link #onDestroy()} (for
    * example, after a change of orientation). In the latter case, the game state is retrieved from
@@ -78,11 +80,10 @@ public class MainActivity extends AppCompatActivity
     gameTimeElapsedKey = getString(R.string.game_time_elapsed_key);
     if (savedInstanceState != null) {
       game = (Game) savedInstanceState.getSerializable(gameDataKey);
-      gameTimeElapsed = savedInstanceState.getLong(gameTimeElapsedKey,0);
+      gameTimeElapsed = savedInstanceState.getLong(gameTimeElapsedKey, 0);
     }
     if (game == null) {
-      game = new Game(timeLimit, numDigits, gameDuration);
-
+        initGame();
     }
     // fade = AnimatorInflater.loadAnimator(this, R.animator.indicator_fade);
   }
@@ -164,9 +165,9 @@ public class MainActivity extends AppCompatActivity
     switch (item.getItemId()) {
       case R.id.reset:
         //todo combine invocations of Game constructor.
-        game = new Game(timeLimit, numDigits, gameDuration);
-        gameTimeElapsed =0;
-        complete = false;
+        initGame();
+        Toast.makeText(this, R.string.reset_message, Toast.LENGTH_LONG).show();
+
         pauseGame();
         break;
       case R.id.play:
@@ -180,15 +181,25 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
         break;
       case R.id.status:
-        intent = new Intent(this, StatusActivity.class);
-        intent.putExtra(getString(R.string.game_data_key), game);
-        startActivity(intent);
+        showStats();
         break;
       default:
         handled = super.onOptionsItemSelected(item);
         break;
     }
     return handled;
+  }
+
+  private void initGame() {
+    game = new Game(timeLimit, numDigits, gameDuration);
+    gameTimeElapsed = 0;
+    complete = false;
+  }
+
+  private void showStats() {
+    Intent intent = new Intent(this, StatusActivity.class);
+    intent.putExtra(getString(R.string.game_data_key), game);
+    startActivity(intent);
   }
 
   /**
@@ -225,7 +236,7 @@ public class MainActivity extends AppCompatActivity
   public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
     readSettings();
     pauseGame();
-    game = new Game(timeLimit, numDigits, gameDuration);
+    initGame();
   }
 
   private void readSettings() {
@@ -242,9 +253,9 @@ public class MainActivity extends AppCompatActivity
 
   private void pauseGame() {
     running = false;
-      stopValueTimer();
-      stopGameTimer();
-      valueDisplay.setText("");
+    stopValueTimer();
+    stopGameTimer();
+    valueDisplay.setText("");
     // TODO Update any additional necessary fields.
     invalidateOptionsMenu();
   }
@@ -252,8 +263,7 @@ public class MainActivity extends AppCompatActivity
   private void resumeGame() {
     running = true;
     if (game == null) {
-      game = new Game(timeLimit, numDigits, gameDuration);
-      gameTimeElapsed =0;
+     initGame();
     }
     updateValue();
     startGameTimer();
@@ -261,15 +271,16 @@ public class MainActivity extends AppCompatActivity
     // TODO Update any additional necessary fields.
     invalidateOptionsMenu();
   }
-  private void stopValueTimer(){
-    if(valueTimer != null){
+
+  private void stopValueTimer() {
+    if (valueTimer != null) {
       valueTimer.cancel();
       valueTimer = null;
     }
   }
 
-  private void stopGameTimer(){
-    if(gameTimer != null){
+  private void stopGameTimer() {
+    if (gameTimer != null) {
       gameTimer.cancel();
       gameTimer = null;
       gameTimeElapsed += System.currentTimeMillis() - gameTimerStart;
@@ -333,9 +344,9 @@ public class MainActivity extends AppCompatActivity
     }
   }
 
-  private void startGameTimer(){
-    gameTimer= new Timer();
-    gameTimer.schedule(new GameTimeOutTask(), 1000L * gameDuration - gameTimeElapsed );
+  private void startGameTimer() {
+    gameTimer = new Timer();
+    gameTimer.schedule(new GameTimeOutTask(), 1000L * gameDuration - gameTimeElapsed);
     gameTimerStart = System.currentTimeMillis();
   }
 
@@ -357,7 +368,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void run() {
       complete = true;
-      runOnUiThread(() -> pauseGame());
+      runOnUiThread(() -> {
+        pauseGame();
+        Toast.makeText(MainActivity.this, R.string.time_expired_message, Toast.LENGTH_LONG).show();
+        showStats();
+      });
 
     }
 

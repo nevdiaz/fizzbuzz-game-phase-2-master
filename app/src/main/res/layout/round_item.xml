@@ -6,21 +6,21 @@
   android:padding="@dimen/roll_item_padding"
   android:theme="@style/RoundItem">
 
-<TextView
-  android:id="@+id/value_display"
-  android:layout_width="0dp"
-  android:layout_height="wrap_content"
-  android:layout_weight="1"
-  android:layout_gravity="center"
-  android:textAlignment="center"/>
+  <TextView
+    android:id="@+id/value_display"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:layout_gravity="center"
+    android:textAlignment="center"/>
 
-<TextView
-  android:id="@+id/category_display"
-  android:layout_width="0dp"
-  android:layout_height="wrap_content"
-  android:layout_weight="2"
-  android:layout_gravity="center"
-  android:textAlignment="center"/>
+  <TextView
+    android:id="@+id/category_display"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="2"
+    android:layout_gravity="center"
+    android:textAlignment="center"/>
 
   <ImageView
     android:id="@+id/result_display"

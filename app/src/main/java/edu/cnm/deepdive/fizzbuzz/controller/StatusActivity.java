@@ -25,8 +25,8 @@ public class StatusActivity extends AppCompatActivity {
     List<Round> rounds = game.getRounds();
     int totalRounds = rounds.size();
     int totalCorrect = 0;
-    for (Round round : rounds){
-      if (round.isCorrect()){
+    for (Round round : rounds) {
+      if (round.isCorrect()) {
         totalCorrect++;
       }
     }
@@ -34,7 +34,6 @@ public class StatusActivity extends AppCompatActivity {
     TextView totalCorrectDisplay = findViewById(R.id.total_correct);
     totalRoundsDisplay.setText(Integer.toString(totalRounds));
     totalCorrectDisplay.setText(Integer.toString(totalCorrect));
-
 
     RoundAdapter adapter = new RoundAdapter(this, game.getRounds());
     roundList.setAdapter(adapter);

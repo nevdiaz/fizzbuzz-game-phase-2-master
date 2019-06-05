@@ -19,15 +19,15 @@ import java.util.List;
 
 public class RoundAdapter extends ArrayAdapter<Round> {
 
-private Drawable correctDrawable;
-private Drawable incorrectDrawable;
-private String correctDescription;
-private String incorrectDescription;
-private int correctColor;
-private int incorrectColor;
-private String [] categoryNames;
+  private Drawable correctDrawable;
+  private Drawable incorrectDrawable;
+  private String correctDescription;
+  private String incorrectDescription;
+  private int correctColor;
+  private int incorrectColor;
+  private String[] categoryNames;
 
-  public  RoundAdapter(@NonNull Context context, @NonNull List<Round> objects) {
+  public RoundAdapter(@NonNull Context context, @NonNull List<Round> objects) {
     super(context, R.layout.round_item, objects);
     correctDrawable = context.getDrawable(R.drawable.check);
     incorrectDrawable = context.getDrawable(R.drawable.error);
@@ -40,9 +40,9 @@ private String [] categoryNames;
     categoryNames = new String[categories.length];
     Resources res = context.getResources();
     String pkg = context.getPackageName();
-    for (int i = 0; i< categories.length; i++){
+    for (int i = 0; i < categories.length; i++) {
       String name = categories[i].toString();
-      int id = res.getIdentifier(name,"string", pkg);
+      int id = res.getIdentifier(name, "string", pkg);
       categoryNames[i] = context.getString(id);
     }
   }
@@ -59,11 +59,11 @@ private String [] categoryNames;
     Round round = getItem(position);
     valueDisplay.setText(Integer.toString(round.getValue()));
     categoryDisplay.setText(categoryNames[round.getCategory().ordinal()]);
-    if (round.isCorrect()){
+    if (round.isCorrect()) {
       resultDisplay.setImageDrawable(correctDrawable);
       resultDisplay.setContentDescription(correctDescription);
       layout.setBackgroundColor(correctColor);
-    }else{
+    } else {
       resultDisplay.setImageDrawable(incorrectDrawable);
       resultDisplay.setContentDescription(incorrectDescription);
       layout.setBackgroundColor(incorrectColor);

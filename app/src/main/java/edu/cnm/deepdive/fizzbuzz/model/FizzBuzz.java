@@ -13,12 +13,17 @@ import java.util.Locale;
  */
 public class FizzBuzz {
 
-  /** {@link String} value indicating a number divisible by 3. */
+  /**
+   * {@link String} value indicating a number divisible by 3.
+   */
   public static final String FIZZ = "Fizz";
-  /** {@link String} value indicating a number divisible by 5. */
+  /**
+   * {@link String} value indicating a number divisible by 5.
+   */
   public static final String BUZZ = "Buzz";
 
-  private FizzBuzz() {}
+  private FizzBuzz() {
+  }
 
   /**
    * Computes and returns "Fizz", "Buzz", or a {@link String} representation of <code>value</code>,

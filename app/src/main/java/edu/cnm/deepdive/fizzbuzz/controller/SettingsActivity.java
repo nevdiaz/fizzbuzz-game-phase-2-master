@@ -43,7 +43,6 @@ public class SettingsActivity extends AppCompatActivity {
      * @param savedInstanceState state of preference UI widgets prior to {@link #onDestroy()}
      * (currently ignored, since changes are written immediately to {@link
      * android.content.SharedPreferences}).
-     *
      * @param rootKey base key prefix for this app's preferences.
      */
     @Override
